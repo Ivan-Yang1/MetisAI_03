@@ -15,7 +15,7 @@
         "创建 .env.local 配置文件",
         "初始化版本控制（git init）"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 2,
@@ -29,7 +29,7 @@
         "设置外键关系和索引",
         "实现数据库连接和会话管理"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 3,
