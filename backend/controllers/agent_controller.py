@@ -7,10 +7,10 @@ import asyncio
 import logging
 from typing import Any, Dict, List, Optional
 
-from backend.agents.base import AgentState, BaseAgent, SimpleChatAgent
-from backend.agents.codeact import CodeActAgent, CodeActAgentConfig, CodeActAgentFactory
-from backend.models.agent import Agent, AgentStatus, AgentType
-from backend.services.db_service import DatabaseService
+from agents.base import AgentState, BaseAgent, SimpleChatAgent
+from agents.codeact import CodeActAgent, CodeActAgentConfig, CodeActAgentFactory
+from models.agent import Agent, AgentStatus, AgentType
+from services.db_service import DatabaseService
 
 logger = logging.getLogger(__name__)
 
@@ -76,6 +76,7 @@ class AgentController:
                     agent_id=db_agent.id,
                     name=db_agent.name,
                     type=db_agent.type,
+                    description=db_agent.description,
                 )
 
             self._agents[db_agent.id] = agent
@@ -297,6 +298,38 @@ class AgentController:
             for agent_id in list(self._agents.keys()):
                 await self.destroy_agent(agent_id)
         logger.info("所有智能体已销毁")
+
+    async def update_agent(
+        self, agent_id: int, **kwargs
+    ) -> bool:
+        """
+        更新智能体信息
+
+        Args:
+            agent_id: 智能体 ID
+            **kwargs: 要更新的字段
+
+        Returns:
+            bool: 是否成功更新
+        """
+        async with self._agent_lock:
+            try:
+                # 更新数据库中的智能体信息
+                await DatabaseService.update_agent(agent_id, **kwargs)
+
+                # 更新内存中的智能体信息
+                agent = self._agents.get(agent_id)
+                if agent:
+                    for key, value in kwargs.items():
+                        if hasattr(agent, key):
+                            setattr(agent, key, value)
+                    logger.debug(f"智能体信息已更新: {agent_id}")
+
+                logger.info(f"智能体信息已更新: {agent_id}")
+                return True
+            except Exception as e:
+                logger.error(f"更新智能体信息失败: {e}")
+                return False
 
     async def update_agent_config(
         self, agent_id: int, config: Dict[str, Any]
