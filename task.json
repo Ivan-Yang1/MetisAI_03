@@ -56,7 +56,7 @@
         "添加会话超时和资源清理",
         "测试会话管理功能"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 5,
@@ -70,7 +70,7 @@
         "添加超时和资源限制",
         "测试沙箱创建和命令执行"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 6,
@@ -83,7 +83,7 @@
         "测试 LLM 响应",
         "添加 Claude 模型支持"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 7,
@@ -98,7 +98,7 @@
         "实现 WebSocket 通信",
         "测试所有 API 端点"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 8,
@@ -111,7 +111,7 @@
         "创建消息状态切片",
         "实现 API 调用封装"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 9,
@@ -127,7 +127,7 @@
         "测试 UI 响应和交互",
         "优化移动端显示"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 10,
@@ -141,21 +141,21 @@
         "配置 WebSocket 连接",
         "添加请求验证和错误处理"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 11,
-      "title": "部署配置",
-      "description": "实现 Docker Compose 部署",
+      "title": "项目文档",
+      "description": "创建项目 README.md 文档",
       "steps": [
-        "创建 Dockerfile.backend",
-        "创建 Dockerfile.frontend",
-        "创建 docker-compose.yml 文件",
-        "配置服务依赖和网络",
-        "测试 Docker 构建和启动",
-        "配置开发环境部署"
+        "编写项目概述和架构介绍",
+        "添加快速开始指南",
+        "详细说明 LLM 配置方法",
+        "提供本地启动测试步骤",
+        "添加部署配置指引",
+        "包含故障排除和贡献指南"
       ],
-      "passes": false
+      "passes": true
     }
   ]
 }

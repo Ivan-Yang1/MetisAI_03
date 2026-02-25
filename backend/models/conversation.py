@@ -9,8 +9,8 @@ from typing import Optional
 from sqlalchemy import JSON, Column, DateTime, Enum as SQLAlchemyEnum, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from backend.models.base import Base
-from backend.models.agent import Agent
+from models.base import Base
+from models.agent import Agent
 
 
 class ConversationStatus(str, Enum):

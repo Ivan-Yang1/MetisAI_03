@@ -11,7 +11,7 @@ import traceback
 from controllers.agent_controller import get_agent_controller
 from models.agent import Agent, AgentStatus, AgentType
 
-router = APIRouter(prefix="/api/v1/agents", tags=["智能体管理"])
+router = APIRouter(prefix="/api/agents", tags=["智能体管理"])
 
 
 class AgentCreate(BaseModel):

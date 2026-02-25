@@ -8,7 +8,7 @@ from typing import Optional
 
 from sqlalchemy import JSON, Column, DateTime, Enum as SQLAlchemyEnum, Integer, String
 
-from backend.models.base import Base
+from models.base import Base
 
 
 class AgentType(str, Enum):

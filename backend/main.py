@@ -2,6 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
+from api.agents import router as agents_router
+from api.conversations import router as conversations_router
+from api.llm import router as llm_router
+
 app = FastAPI(title="MetisAI", version="0.1.0")
 
 # CORS 中间件
@@ -12,6 +16,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# 注册路由
+app.include_router(agents_router)
+app.include_router(conversations_router)
+app.include_router(llm_router)
 
 @app.get("/")
 async def root():

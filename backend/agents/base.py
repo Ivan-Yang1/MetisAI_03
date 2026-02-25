@@ -11,7 +11,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from pydantic import BaseModel, Field, validator
 
-from backend.models.agent import Agent, AgentStatus, AgentType
+from models.agent import Agent, AgentStatus, AgentType
 
 
 class AgentState(str, Enum):
@@ -75,15 +75,27 @@ class BaseAgent(ABC):
         name: str,
         type: AgentType = AgentType.CHAT,
         config: Optional[AgentConfig] = None,
+        description: Optional[str] = None,
     ):
         self.agent_id: int = agent_id
         self.name: str = name
         self.type: AgentType = type
         self.config: AgentConfig = config or AgentConfig()
         self.state: AgentState = AgentState.IDLE
+        self.description: Optional[str] = description
         self.created_at: datetime = datetime.utcnow()
         self.updated_at: datetime = datetime.utcnow()
         self.history: List[AgentOutput] = []
+
+    @property
+    def status(self) -> AgentState:
+        """status 属性别名，用于兼容不同的访问方式"""
+        return self.state
+
+    @property
+    def id(self) -> int:
+        """id 属性别名，用于兼容不同的访问方式"""
+        return self.agent_id
 
     @property
     def is_active(self) -> bool:
@@ -152,6 +164,16 @@ class SimpleChatAgent(BaseAgent):
     简单聊天智能体实现
     用于演示和测试目的
     """
+
+    def __init__(
+        self,
+        agent_id: int,
+        name: str,
+        type: AgentType = AgentType.CHAT,
+        config: Optional[AgentConfig] = None,
+        description: Optional[str] = None,
+    ):
+        super().__init__(agent_id, name, type, config, description)
 
     async def run(self, input_data: Union[AgentInput, str]) -> AgentOutput:
         """

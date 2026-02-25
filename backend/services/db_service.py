@@ -8,10 +8,10 @@ from typing import List, Optional
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.database import get_db_session
-from backend.models.agent import Agent, AgentType, AgentStatus
-from backend.models.conversation import Conversation, ConversationStatus
-from backend.models.message import Message, MessageRole
+from database import get_db_session
+from models.agent import Agent, AgentType, AgentStatus
+from models.conversation import Conversation, ConversationStatus
+from models.message import Message, MessageRole
 
 
 class DatabaseService:
@@ -93,7 +93,8 @@ class DatabaseService:
     @classmethod
     async def create_conversation(
         cls,
-        user_id: str,
+        conversation: Conversation = None,
+        user_id: str = None,
         agent_id: int = None,
         title: str = None,
         status: ConversationStatus = ConversationStatus.ACTIVE,
@@ -102,13 +103,14 @@ class DatabaseService:
         """创建会话"""
         async for session in get_db_session():
             try:
-                conversation = Conversation(
-                    user_id=user_id,
-                    agent_id=agent_id,
-                    title=title,
-                    status=status,
-                    metadata_=metadata,
-                )
+                if conversation is None:
+                    conversation = Conversation(
+                        user_id=user_id,
+                        agent_id=agent_id,
+                        title=title,
+                        status=status,
+                        metadata_=metadata,
+                    )
                 session.add(conversation)
                 await session.commit()
                 await session.refresh(conversation)
@@ -116,6 +118,15 @@ class DatabaseService:
             except Exception as e:
                 await session.rollback()
                 raise e
+
+    @classmethod
+    async def get_active_conversations(cls) -> List[Conversation]:
+        """获取所有活动状态的会话"""
+        async for session in get_db_session():
+            result = await session.execute(
+                select(Conversation).where(Conversation.status == ConversationStatus.ACTIVE)
+            )
+            return list(result.scalars().all())
 
     @classmethod
     async def get_conversation(cls, conversation_id: int) -> Optional[Conversation]:
@@ -172,20 +183,22 @@ class DatabaseService:
     @classmethod
     async def create_message(
         cls,
-        conversation_id: int,
-        role: MessageRole,
-        content: str,
+        message: Message = None,
+        conversation_id: int = None,
+        role: MessageRole = None,
+        content: str = None,
         metadata: dict = None,
     ) -> Message:
         """创建消息"""
         async for session in get_db_session():
             try:
-                message = Message(
-                    conversation_id=conversation_id,
-                    role=role,
-                    content=content,
-                    metadata_=metadata,
-                )
+                if message is None:
+                    message = Message(
+                        conversation_id=conversation_id,
+                        role=role,
+                        content=content,
+                        metadata_=metadata,
+                    )
                 session.add(message)
                 await session.commit()
                 await session.refresh(message)

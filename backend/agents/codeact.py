@@ -11,8 +11,8 @@ from typing import Any, Dict, List, Optional, Union
 
 from pydantic import Field, validator
 
-from backend.agents.base import AgentConfig, AgentInput, AgentOutput, AgentState, BaseAgent
-from backend.models.agent import Agent, AgentType
+from agents.base import AgentConfig, AgentInput, AgentOutput, AgentState, BaseAgent
+from models.agent import Agent, AgentType
 
 
 class CodeActAgentConfig(AgentConfig):
@@ -46,11 +46,17 @@ class CodeActAgent(BaseAgent):
         agent_id: int,
         name: str,
         config: Optional[CodeActAgentConfig] = None,
+        description: Optional[str] = None,
     ):
-        super().__init__(agent_id, name, AgentType.CODEACT, config or CodeActAgentConfig())
+        super().__init__(agent_id, name, AgentType.CODEACT, config or CodeActAgentConfig(), description)
         self.config: CodeActAgentConfig = config or CodeActAgentConfig()
         self.code_execution_count: int = 0
         self.last_code_output: Optional[str] = None
+
+    @property
+    def id(self) -> int:
+        """id 属性别名，用于兼容不同的访问方式"""
+        return self.agent_id
 
     async def run(self, input_data: Union[AgentInput, str]) -> AgentOutput:
         """
@@ -293,7 +299,7 @@ class CodeActAgentFactory:
 
     @staticmethod
     def create_agent(
-        agent_id: int, name: str, config: Optional[CodeActAgentConfig] = None
+        agent_id: int, name: str, config: Optional[CodeActAgentConfig] = None, description: Optional[str] = None
     ) -> CodeActAgent:
         """
         创建 CodeAct 智能体实例
@@ -302,11 +308,12 @@ class CodeActAgentFactory:
             agent_id: 智能体 ID
             name: 智能体名称
             config: 智能体配置
+            description: 智能体描述
 
         Returns:
             CodeActAgent: 智能体实例
         """
-        return CodeActAgent(agent_id, name, config or CodeActAgentConfig())
+        return CodeActAgent(agent_id, name, config or CodeActAgentConfig(), description)
 
     @staticmethod
     def create_agent_from_db_model(db_agent: Agent) -> CodeActAgent:
@@ -321,6 +328,6 @@ class CodeActAgentFactory:
         """
         config = CodeActAgentConfig(**(db_agent.config or {}))
         agent = CodeActAgent(
-            db_agent.id, db_agent.name, config
+            db_agent.id, db_agent.name, config, db_agent.description
         )
         return agent

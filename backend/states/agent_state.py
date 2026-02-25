@@ -15,7 +15,7 @@ from pydantic import BaseModel, Field
 
 from backend.agents.base import AgentState, BaseAgent
 from backend.controllers.agent_controller import get_agent_controller
-from backend.models.agent import Agent, AgentStatus, AgentType
+from models.agent import Agent, AgentStatus, AgentType
 from backend.services.db_service import DatabaseService
 
 logger = logging.getLogger(__name__)

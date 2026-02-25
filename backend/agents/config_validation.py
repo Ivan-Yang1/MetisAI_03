@@ -11,7 +11,7 @@ from pydantic import ValidationError
 from backend.agents.base import AgentConfig, AgentState, BaseAgent
 from backend.agents.codeact import CodeActAgent, CodeActAgentConfig
 from backend.controllers.agent_controller import get_agent_controller
-from backend.models.agent import AgentType
+from models.agent import AgentType
 from backend.services.db_service import DatabaseService
 
 logger = logging.getLogger(__name__)

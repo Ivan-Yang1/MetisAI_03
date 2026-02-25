@@ -9,8 +9,8 @@ from typing import Optional
 from sqlalchemy import JSON, Column, DateTime, Enum as SQLAlchemyEnum, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 
-from backend.models.base import Base
-from backend.models.conversation import Conversation
+from models.base import Base
+from models.conversation import Conversation
 
 
 class MessageRole(str, Enum):
