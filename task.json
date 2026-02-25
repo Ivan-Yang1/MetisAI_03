@@ -1,0 +1,161 @@
+{
+  "project": "MetisAI",
+  "description": "基于 OpenHands 架构的 AI 驱动开发平台，重点关注基本功能实现",
+  "tasks": [
+    {
+      "id": 1,
+      "title": "项目架构与基础配置",
+      "description": "配置项目架构和基础依赖",
+      "steps": [
+        "创建项目目录结构（frontend/ 和 backend/）",
+        "前端：初始化 Vite + React 19 + TypeScript 项目",
+        "前端：安装核心依赖（Redux Toolkit, React Router, Axios）",
+        "后端：初始化 Python 项目，配置 Poetry 依赖管理",
+        "后端：安装核心依赖（FastAPI, SQLAlchemy, JWT, python-socketio）",
+        "创建 .env.local 配置文件",
+        "初始化版本控制（git init）"
+      ],
+      "passes": false
+    },
+    {
+      "id": 2,
+      "title": "数据库架构",
+      "description": "实现核心数据库模型",
+      "steps": [
+        "配置 SQLite 数据库连接（简化开发）",
+        "创建智能体模型（agents 表）",
+        "创建会话模型（conversations 表）",
+        "创建消息模型（messages 表）",
+        "设置外键关系和索引",
+        "实现数据库连接和会话管理"
+      ],
+      "passes": false
+    },
+    {
+      "id": 3,
+      "title": "智能体系统架构",
+      "description": "实现智能体基类和控制器",
+      "steps": [
+        "创建智能体基类（Agent）",
+        "实现智能体控制器（AgentController）",
+        "创建智能体状态管理系统",
+        "实现 CodeActAgent 类",
+        "添加智能体配置验证",
+        "测试智能体创建和销毁"
+      ],
+      "passes": false
+    },
+    {
+      "id": 4,
+      "title": "会话管理系统",
+      "description": "实现会话创建和管理",
+      "steps": [
+        "创建会话管理器（ConversationManager）",
+        "实现会话类（Session）",
+        "实现会话初始化和配置",
+        "添加会话超时和资源清理",
+        "测试会话管理功能"
+      ],
+      "passes": false
+    },
+    {
+      "id": 5,
+      "title": "沙箱执行环境",
+      "description": "实现 Docker 容器沙箱和动作执行",
+      "steps": [
+        "创建沙箱配置系统",
+        "实现 Docker 运行时（DockerRuntime）",
+        "创建动作执行服务器",
+        "实现动作类型处理",
+        "添加超时和资源限制",
+        "测试沙箱创建和命令执行"
+      ],
+      "passes": false
+    },
+    {
+      "id": 6,
+      "title": "LLM 集成系统",
+      "description": "实现 LLM 连接和响应生成",
+      "steps": [
+        "集成 litellm 库",
+        "实现 LLM 客户端",
+        "配置基础 LLM 连接",
+        "测试 LLM 响应",
+        "添加 Claude 模型支持"
+      ],
+      "passes": false
+    },
+    {
+      "id": 7,
+      "title": "后端 API 服务",
+      "description": "实现核心 API 和 WebSocket",
+      "steps": [
+        "创建 FastAPI 应用实例",
+        "实现智能体管理 API",
+        "实现会话管理 API",
+        "实现消息处理 API",
+        "配置 CORS 中间件",
+        "实现 WebSocket 通信",
+        "测试所有 API 端点"
+      ],
+      "passes": false
+    },
+    {
+      "id": 8,
+      "title": "前端状态管理",
+      "description": "实现 Redux 状态管理",
+      "steps": [
+        "配置 Redux Toolkit",
+        "创建智能体状态切片",
+        "创建会话状态切片",
+        "创建消息状态切片",
+        "实现 API 调用封装"
+      ],
+      "passes": false
+    },
+    {
+      "id": 9,
+      "title": "前端核心界面",
+      "description": "实现主要的 UI 组件",
+      "steps": [
+        "创建基础布局组件",
+        "实现登录/注册页面（可选，简化版本）",
+        "实现智能体管理界面",
+        "实现会话管理页面",
+        "实现消息聊天界面",
+        "添加实时状态显示",
+        "测试 UI 响应和交互",
+        "优化移动端显示"
+      ],
+      "passes": false
+    },
+    {
+      "id": 10,
+      "title": "前端 API 集成",
+      "description": "实现与后端的通信",
+      "steps": [
+        "配置 Axios 实例",
+        "实现智能体管理 API 调用",
+        "实现会话管理 API 调用",
+        "实现消息处理 API 调用",
+        "配置 WebSocket 连接",
+        "添加请求验证和错误处理"
+      ],
+      "passes": false
+    },
+    {
+      "id": 11,
+      "title": "部署配置",
+      "description": "实现 Docker Compose 部署",
+      "steps": [
+        "创建 Dockerfile.backend",
+        "创建 Dockerfile.frontend",
+        "创建 docker-compose.yml 文件",
+        "配置服务依赖和网络",
+        "测试 Docker 构建和启动",
+        "配置开发环境部署"
+      ],
+      "passes": false
+    }
+  ]
+}
