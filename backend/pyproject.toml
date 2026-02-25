@@ -1,0 +1,52 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "metisai-backend"
+version = "0.1.0"
+description = "MetisAI 后端服务"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+authors = [
+  { name = "MetisAI Team", email = "team@metisai.com" }
+]
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "sqlalchemy[asyncio]",
+  "python-jose[cryptography]",
+  "python-multipart",
+  "python-dotenv",
+  "python-socketio==5.14",
+  "litellm>=1.74.3",
+  "python-multipart",
+  "pydantic[email]",
+  "httpx"
+]
+
+[tool.poetry]
+name = "metisai-backend"
+version = "0.1.0"
+description = "MetisAI 后端服务"
+authors = ["MetisAI Team <team@metisai.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12,<3.14"
+fastapi = "*"
+uvicorn = { extras = ["standard"], version = "*" }
+sqlalchemy = { extras = ["asyncio"], version = "*" }
+python-jose = { extras = ["cryptography"], version = "*" }
+python-multipart = "*"
+python-dotenv = "*"
+python-socketio = "5.14.0"
+litellm = ">=1.74.3"
+pydantic = { extras = ["email"], version = "*" }
+httpx = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+pytest-asyncio = "*"
+pytest-cov = "*"
+ruff = "*"
